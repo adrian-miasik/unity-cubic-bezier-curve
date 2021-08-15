@@ -1,4 +1,4 @@
-# cubic-bezier-curve-demo
-A cubic bézier curve represented inside Unity using line renderers
+# unity-cubic-bezier-curve
+A cubic bézier curve created in Unity using line renderers
 
 ![Sample Gif](/Promo/cubic-bezier-curve-demo-preview.gif)
