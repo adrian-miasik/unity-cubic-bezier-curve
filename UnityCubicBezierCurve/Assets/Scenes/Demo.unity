@@ -281,7 +281,7 @@ MonoBehaviour:
   distanceFromTarget: 20
   autoSpin: 1
   spinDirection: {x: 0, y: 1}
-  spinSpeed: 0.1
+  spinSpeed: 0.05
 --- !u!114 &646206721
 MonoBehaviour:
   m_ObjectHideFlags: 0
