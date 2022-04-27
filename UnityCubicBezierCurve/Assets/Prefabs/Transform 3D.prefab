@@ -2483,6 +2483,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axis: 2
+  renderers:
+  - {fileID: 2874287819490086170}
+  - {fileID: 7755626190995013727}
+  highlightedAxisMaterial: {fileID: 2100000, guid: 865f4dc8404c78d4ea1854c2a4d606c9,
+    type: 2}
 --- !u!1 &4004548631156621603
 GameObject:
   m_ObjectHideFlags: 0
@@ -2529,6 +2534,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axis: 1
+  renderers:
+  - {fileID: 2349025168541263613}
+  - {fileID: 3771789903642321516}
+  highlightedAxisMaterial: {fileID: 2100000, guid: 865f4dc8404c78d4ea1854c2a4d606c9,
+    type: 2}
 --- !u!1 &4004548631379593390
 GameObject:
   m_ObjectHideFlags: 0
@@ -2670,6 +2680,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axis: 3
+  renderers:
+  - {fileID: 7959912725142779097}
+  - {fileID: 3013458007133157932}
+  highlightedAxisMaterial: {fileID: 2100000, guid: 865f4dc8404c78d4ea1854c2a4d606c9,
+    type: 2}
 --- !u!1 &4205538586240819659
 GameObject:
   m_ObjectHideFlags: 0

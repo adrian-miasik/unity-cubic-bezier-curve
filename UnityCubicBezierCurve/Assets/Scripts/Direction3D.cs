@@ -1,13 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Direction3D : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [SerializeField] public Transform3D.DirectionAxis axis = Transform3D.DirectionAxis.NONE;
+
+    [SerializeField] private List<Renderer> renderers = new List<Renderer>();
+    [SerializeField] private Material highlightedAxisMaterial;
     
     private Transform3D transform3D;
     private bool isInitialized;
-    
+    private List<Material> cachedRendererMaterials = new List<Material>();
+
     public void Initialize(Transform3D _parent)
     {
         transform3D = _parent;
@@ -56,12 +61,23 @@ public class Direction3D : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     private void Highlight()
     {
-        // Enable shader
+        cachedRendererMaterials.Clear();
+
+        // Enable highlight material / shader
+        foreach (Renderer renderer in renderers)
+        {
+            cachedRendererMaterials.Add(renderer.material);
+            renderer.material = highlightedAxisMaterial;
+        }
     }
 
     private void UnHighlight()
     {
-        // Disable shader
+        // Disable highlight material / shader
+        for (int i = 0; i < renderers.Count; i++)
+        {
+            renderers[i].material = cachedRendererMaterials[i];
+        }
     }
     
     public void OnPointerClick(PointerEventData eventData)

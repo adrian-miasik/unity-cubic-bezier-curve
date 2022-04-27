@@ -9,11 +9,10 @@ public class Transform3D : MonoBehaviour
         Y,
         Z
     }
-    
+
     [SerializeField] private Direction3D x;
     [SerializeField] private Direction3D y;
     [SerializeField] private Direction3D z;
-
     [SerializeField] private Direction3D currentAxis;
 
     private bool isInitialized;
