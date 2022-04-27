@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Transform3D : MonoBehaviour
 {
@@ -16,7 +18,12 @@ public class Transform3D : MonoBehaviour
     [SerializeField] private Direction3D currentAxis;
 
     private bool isInitialized;
-    
+    private PointerEventData cachedPointerData;
+
+    [SerializeField] private bool isHolding;
+    private Vector2 startPosition;
+    private Vector2 endPosition;
+
     private void Start()
     {
         isInitialized = Setup();
@@ -42,12 +49,38 @@ public class Transform3D : MonoBehaviour
         return false;
     }
 
-    public void OnClick(Direction3D _direction3D)
+    private void Update()
+    {
+        if (!isInitialized)
+            return;
+
+        if (isHolding)
+        {
+            endPosition = cachedPointerData.position;
+        }
+        
+        Debug.DrawLine(startPosition, endPosition, Color.red);
+    }
+
+    public void OnPointerDown(PointerEventData eventData, Direction3D _direction3D)
     {
         if (!isInitialized)
             return;
 
         Debug.Log("Axis changed! " + _direction3D.axis);
         currentAxis = _direction3D;
+
+        cachedPointerData = eventData;
+        isHolding = true;
+        startPosition = eventData.position;
+    }
+    
+    public void OnPointerUp(PointerEventData eventData, Direction3D _direction3D)
+    {
+        if (!isInitialized)
+            return;
+        
+        endPosition = eventData.position;
+        isHolding = false;
     }
 }

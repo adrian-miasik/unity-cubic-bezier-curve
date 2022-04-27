@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Direction3D : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+public class Direction3D : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
 {
     [SerializeField] public Transform3D.DirectionAxis axis = Transform3D.DirectionAxis.NONE;
 
@@ -80,11 +80,19 @@ public class Direction3D : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
     
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
         if (!isInitialized)
             return;
         
-        transform3D.OnClick(this);
+        transform3D.OnPointerDown(eventData, this);
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        if (!isInitialized)
+            return;
+        
+        transform3D.OnPointerUp(eventData, this);
     }
 }
