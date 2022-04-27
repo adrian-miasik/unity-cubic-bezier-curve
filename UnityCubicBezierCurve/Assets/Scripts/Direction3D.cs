@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using AdrianMiasik;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Direction3D : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
