@@ -58,6 +58,7 @@ public class SelectionManager : MonoBehaviour
     {
         allSelections.Clear();
         allSelections.Add(_selection);
+        lastSelectionPoint = _selection;
 
         ShowVisual(_selection.transform.position);
     }
@@ -87,7 +88,7 @@ public class SelectionManager : MonoBehaviour
     public void Deselect()
     {
         allSelections.Clear();
-        HideVisual();
+        // HideVisual();
     }
 
     /// <summary>
@@ -131,5 +132,10 @@ public class SelectionManager : MonoBehaviour
     private void HideVisual()
     {
         selectionVisual.SetActive(false);
+    }
+
+    public Selection GetLastSelection()
+    {
+        return lastSelectionPoint;
     }
 }

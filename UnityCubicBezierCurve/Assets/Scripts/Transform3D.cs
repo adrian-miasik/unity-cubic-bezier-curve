@@ -12,6 +12,7 @@ public class Transform3D : MonoBehaviour
         Z
     }
 
+    [SerializeField] private Camera camera;
     [SerializeField] private Direction3D x;
     [SerializeField] private Direction3D y;
     [SerializeField] private Direction3D z;
@@ -19,10 +20,11 @@ public class Transform3D : MonoBehaviour
 
     private bool isInitialized;
     private PointerEventData cachedPointerData;
+    private Vector3 startingTransformPosition;
 
     [SerializeField] private bool isHolding;
-    private Vector2 startPosition;
-    private Vector2 endPosition;
+    private Vector3 startPosition;
+    private Vector3 endPosition;
 
     private void Start()
     {
@@ -49,6 +51,7 @@ public class Transform3D : MonoBehaviour
         return false;
     }
 
+    
     private void Update()
     {
         if (!isInitialized)
@@ -57,9 +60,35 @@ public class Transform3D : MonoBehaviour
         if (isHolding)
         {
             endPosition = cachedPointerData.position;
+            
+            // Screenspace input line
+            Debug.DrawLine(startPosition, endPosition, Color.black);
+
+            Color currentAxisColor = Color.white;
+
+            if (currentAxis == x)
+            {
+                endPosition = new Vector3(endPosition.x, startPosition.y, startPosition.z);
+                currentAxisColor = Color.red;
+            }else if (currentAxis == y)
+            {
+                endPosition = new Vector3(startPosition.x, endPosition.y, startPosition.z);
+                currentAxisColor = Color.green;
+            }
+            else if (currentAxis == z)
+            {
+                endPosition = new Vector3(startPosition.x, startPosition.y, endPosition.z);
+                currentAxisColor = Color.blue;
+            }
+
+            Vector3 distance = (endPosition - startPosition) * 0.01f;
+            transform.position = startingTransformPosition + distance;
+
+            // Axis input line
+            Debug.DrawLine(startPosition, endPosition, currentAxisColor);
+
+            SelectionManager.instance.GetLastSelection().transform.position = transform.position;
         }
-        
-        Debug.DrawLine(startPosition, endPosition, Color.red);
     }
 
     public void OnPointerDown(PointerEventData eventData, Direction3D _direction3D)
@@ -70,6 +99,7 @@ public class Transform3D : MonoBehaviour
         Debug.Log("Axis changed! " + _direction3D.axis);
         currentAxis = _direction3D;
 
+        startingTransformPosition = transform.position;
         cachedPointerData = eventData;
         isHolding = true;
         startPosition = eventData.position;
