@@ -2433,10 +2433,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28fa5ee159ba4ea41b9905ac6ea2af42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  x: {fileID: 4004548631034682466}
-  y: {fileID: 4004548631693807724}
-  z: {fileID: 4004548631156621602}
+  camera: {fileID: 0}
+  x: {fileID: 4004548631156621602}
+  y: {fileID: 4004548631034682466}
+  z: {fileID: 4004548631693807724}
   currentAxis: {fileID: 0}
+  isHolding: 0
 --- !u!1 &4004548631034682467
 GameObject:
   m_ObjectHideFlags: 0
