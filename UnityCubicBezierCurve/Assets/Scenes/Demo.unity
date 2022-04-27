@@ -2028,6 +2028,11 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 1968312477}
+    - target: {fileID: 4004548630828527117, guid: cbed227abeeb45a41a416a975930c284,
+        type: 3}
+      propertyPath: planeInputLayerMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
     - target: {fileID: 4004548630828527118, guid: cbed227abeeb45a41a416a975930c284,
         type: 3}
       propertyPath: m_RootOrder
@@ -2087,6 +2092,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Transform 3D
+      objectReference: {fileID: 0}
+    - target: {fileID: 4004548630828527119, guid: cbed227abeeb45a41a416a975930c284,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5937432405053711498, guid: cbed227abeeb45a41a416a975930c284,
         type: 3}

@@ -88,7 +88,7 @@ public class SelectionManager : MonoBehaviour
     public void Deselect()
     {
         allSelections.Clear();
-        // HideVisual();
+        HideVisual();
     }
 
     /// <summary>
@@ -137,5 +137,10 @@ public class SelectionManager : MonoBehaviour
     public Selection GetLastSelection()
     {
         return lastSelectionPoint;
+    }
+
+    public List<Selection> GetSelections()
+    {
+        return allSelections;
     }
 }

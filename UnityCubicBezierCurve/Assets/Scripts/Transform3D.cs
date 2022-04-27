@@ -13,18 +13,18 @@ public class Transform3D : MonoBehaviour
     }
 
     [SerializeField] private Camera camera;
+    [SerializeField] private LayerMask cubeInputLayer;
     [SerializeField] private Direction3D x;
     [SerializeField] private Direction3D y;
     [SerializeField] private Direction3D z;
     [SerializeField] private Direction3D currentAxis;
 
     private bool isInitialized;
-    private PointerEventData cachedPointerData;
-    private Vector3 startingTransformPosition;
 
     [SerializeField] private bool isHolding;
-    private Vector3 startPosition;
-    private Vector3 endPosition;
+    private PointerEventData cachedPointerData;
+    private GameObject inputCube;
+    private Vector3 startingPosition;
 
     private void Start()
     {
@@ -59,58 +59,70 @@ public class Transform3D : MonoBehaviour
 
         if (isHolding)
         {
-            endPosition = cachedPointerData.position;
-            
-            // Screenspace input line
-            Debug.DrawLine(startPosition, endPosition, Color.black);
+            RaycastHit hit;
+            Ray ray = camera.ScreenPointToRay(cachedPointerData.position);
 
-            Color currentAxisColor = Color.white;
+            if (Physics.Raycast(ray, out hit, camera.farClipPlane, cubeInputLayer))
+            {
+                if (currentAxis == z)
+                {
+                    inputCube.transform.position = new Vector3(startingPosition.x, startingPosition.y, hit.point.z);
+                }
+                else if (currentAxis == x)
+                {
+                    inputCube.transform.position = new Vector3(hit.point.x, startingPosition.y, startingPosition.z);
+                }
+                else if (currentAxis == y)
+                {
+                    inputCube.transform.position = new Vector3(startingPosition.x, hit.point.y, startingPosition.z);
+                }
 
-            if (currentAxis == x)
-            {
-                endPosition = new Vector3(endPosition.x, startPosition.y, startPosition.z);
-                currentAxisColor = Color.red;
-            }else if (currentAxis == y)
-            {
-                endPosition = new Vector3(startPosition.x, endPosition.y, startPosition.z);
-                currentAxisColor = Color.green;
+                transform.position = inputCube.transform.position;
+
+                foreach (Selection selection in SelectionManager.instance.GetSelections())
+                {
+                    selection.transform.position = inputCube.transform.position;
+                }
             }
-            else if (currentAxis == z)
-            {
-                endPosition = new Vector3(startPosition.x, startPosition.y, endPosition.z);
-                currentAxisColor = Color.blue;
-            }
-
-            Vector3 distance = (endPosition - startPosition) * 0.01f;
-            transform.position = startingTransformPosition + distance;
-
-            // Axis input line
-            Debug.DrawLine(startPosition, endPosition, currentAxisColor);
-
-            SelectionManager.instance.GetLastSelection().transform.position = transform.position;
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData, Direction3D _direction3D)
+    public void OnPointerDown(PointerEventData pointerData, Direction3D _direction3D)
     {
         if (!isInitialized)
             return;
 
         Debug.Log("Axis changed! " + _direction3D.axis);
         currentAxis = _direction3D;
+        startingPosition = transform.position;
+        cachedPointerData = pointerData;
 
-        startingTransformPosition = transform.position;
-        cachedPointerData = eventData;
+        GeneratePlane(_direction3D);
+
         isHolding = true;
-        startPosition = eventData.position;
     }
-    
-    public void OnPointerUp(PointerEventData eventData, Direction3D _direction3D)
+
+    private void GeneratePlane(Direction3D direction3D)
+    {
+        inputCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        inputCube.GetComponent<Renderer>().enabled = false;
+        inputCube.transform.localScale = new Vector3(100, 100, 0.01f);
+        inputCube.transform.position = direction3D.transform.position;
+        inputCube.layer = LayerMask.NameToLayer("CubeInput");
+
+        // Rotate plane to match movement direction
+        if (direction3D == z)
+        {
+            inputCube.transform.eulerAngles = new Vector3(-90, 0, 0);
+        }
+    }
+
+    public void OnPointerUp(Direction3D _direction3D)
     {
         if (!isInitialized)
             return;
         
-        endPosition = eventData.position;
         isHolding = false;
+        Destroy(inputCube);
     }
 }

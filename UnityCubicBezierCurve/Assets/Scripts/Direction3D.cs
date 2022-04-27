@@ -93,6 +93,6 @@ public class Direction3D : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (!isInitialized)
             return;
         
-        transform3D.OnPointerUp(eventData, this);
+        transform3D.OnPointerUp(this);
     }
 }
