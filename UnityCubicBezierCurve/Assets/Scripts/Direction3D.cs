@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class Direction3D : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
-    [SerializeField] public Direction3DAxis axis = Direction3DAxis.NONE;
+    [SerializeField] public Transform3D.DirectionAxis axis = Transform3D.DirectionAxis.NONE;
     
     private Transform3D transform3D;
     private bool isInitialized;
@@ -17,7 +17,7 @@ public class Direction3D : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         isInitialized = true;
     }
 
-    public void Initialize(Transform3D _parent, Direction3DAxis _axis)
+    public void Initialize(Transform3D _parent, Transform3D.DirectionAxis _axis)
     {
         transform3D = _parent;
         axis = _axis;

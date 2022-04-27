@@ -3,6 +3,14 @@ using UnityEngine;
 
 public class Transform3D : MonoBehaviour
 {
+    public enum DirectionAxis
+    {
+        NONE,
+        X,
+        Y,
+        Z
+    }
+    
     [SerializeField] private Direction3D x;
     [SerializeField] private Direction3D y;
     [SerializeField] private Direction3D z;
@@ -24,9 +32,9 @@ public class Transform3D : MonoBehaviour
     {
         if (x != null && y != null && z != null)
         {
-            x.Initialize(this, Direction3DAxis.X);
-            y.Initialize(this, Direction3DAxis.Y);
-            z.Initialize(this, Direction3DAxis.Z);
+            x.Initialize(this, DirectionAxis.X);
+            y.Initialize(this, DirectionAxis.Y);
+            z.Initialize(this, DirectionAxis.Z);
             
             return true;
         }
