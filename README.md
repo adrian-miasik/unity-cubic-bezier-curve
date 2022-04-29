@@ -1,6 +1,6 @@
 <h1 align="center">Unity Cubic Bézier Curve</h1>
 
-![Sample Gif](/Promo/cubic-bezier-curve-demo-preview.gif)
+![Sample Gif](promotional/cubic-bezier-curve-demo-preview.gif)
 
 ## About
 
