@@ -13,7 +13,7 @@ Unity Cubic Bézier Curve is a project used to demonstrate a 3D [bézier curve](
 **License**: [GPL-3.0](LICENSE)
 
 **Contributor(s)**: `-`  
-Want to help? If you're interested in contributing to the project, please send me a message / reach out: adrianmiasik@gmail.com
+Want to help? If you're interested in contributing to the project, please send me a message / reach out: cubic-bezier-curve@adrian-miasik.com
 
 ## Author Notes
 Fun fact: This project inspired me to create [unity-shaders](https://github.com/adrian-miasik/unity-shaders/releases/tag/v1.0.0)
